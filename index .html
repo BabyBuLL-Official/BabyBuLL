@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>$BBULL — BabyBuLL | Little Body, Big Ambition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#07100a;
+    --bg-2:#0c1712;
+    --panel:#0f1c14;
+    --line:#1c3324;
+    --green:#39ff14;
+    --green-dim:#1f8f0d;
+    --lime:#b6ff3c;
+    --gold:#e8b23d;
+    --ember:#ff4d2e;
+    --ink:#eef5ea;
+    --ink-dim:#9fb3a6;
+    --mono:'JetBrains Mono', monospace;
+    --display:'Anton', sans-serif;
+    --body:'Inter', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--body);
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+
+  /* background texture: faint circuit/lightning grid */
+  .bg-grid{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      linear-gradient(rgba(57,255,20,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(57,255,20,0.045) 1px, transparent 1px);
+    background-size:42px 42px;
+    mask-image: radial-gradient(ellipse at 50% 20%, black 0%, transparent 70%);
+  }
+
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px; position:relative; z-index:2;}
+
+  /* ---------- TICKER ---------- */
+  .ticker-bar{
+    background:var(--green);
+    color:#07100a;
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:13px;
+    letter-spacing:.02em;
+    overflow:hidden;
+    white-space:nowrap;
+    position:relative;
+    z-index:5;
+    border-bottom:2px solid #000;
+  }
+  .ticker-track{
+    display:inline-block;
+    padding-left:100%;
+    animation:scroll-left 26s linear infinite;
+  }
+  .ticker-track span{padding:8px 28px; display:inline-block;}
+  @keyframes scroll-left{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-100%);}
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:20;
+    background:rgba(7,16,10,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 24px;
+  }
+  .brand{display:flex; align-items:center; gap:12px;}
+  .brand img{width:44px; height:44px; border-radius:50%; border:2px solid var(--green);}
+  .brand-name{font-family:var(--display); font-size:20px; letter-spacing:.03em;}
+  .brand-name em{font-style:normal; color:var(--green);}
+  nav ul{list-style:none; display:flex; gap:28px; margin:0; padding:0; font-size:14px; font-weight:600;}
+  nav ul a{text-decoration:none; color:var(--ink-dim); transition:color .2s;}
+  nav ul a:hover{color:var(--green);}
+  .nav-cta{
+    background:var(--green); color:#07100a; font-weight:800; font-size:13px;
+    padding:10px 18px; border-radius:6px; text-decoration:none;
+    box-shadow:0 0 0 2px #000 inset;
+  }
+  .nav-toggle,.mobile-menu{display:none;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:64px 0 40px;
+    overflow:hidden;
+  }
+  .hero-glow{
+    position:absolute; top:-200px; left:50%; transform:translateX(-50%);
+    width:900px; height:900px;
+    background:radial-gradient(circle, rgba(57,255,20,0.18) 0%, transparent 60%);
+    z-index:0;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:40px; align-items:center;
+    position:relative; z-index:2;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:12px; font-weight:700; letter-spacing:.12em;
+    color:var(--green); text-transform:uppercase;
+    border:1px solid var(--green-dim); padding:6px 12px; border-radius:100px;
+    background:rgba(57,255,20,0.06);
+  }
+  .eyebrow::before{content:"●"; color:var(--ember); font-size:9px;}
+  h1.headline{
+    font-family:var(--display);
+    font-size:clamp(42px, 6.2vw, 84px);
+    line-height:0.96;
+    letter-spacing:.01em;
+    margin:18px 0 0;
+    text-transform:uppercase;
+  }
+  h1.headline .accent{color:var(--green); -webkit-text-stroke:1.5px #000;}
+  .sub{
+    font-size:17px; line-height:1.6; color:var(--ink-dim);
+    max-width:480px; margin:20px 0 28px;
+  }
+  .cta-row{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:26px;}
+  .btn{
+    font-weight:800; font-size:14px; padding:15px 26px; border-radius:8px;
+    text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    letter-spacing:.02em; transition:transform .15s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--green); color:#07100a; box-shadow:0 4px 0 #157a08;}
+  .btn-ghost{border:2px solid var(--line); color:var(--ink); background:rgba(255,255,255,0.02);}
+  .ca-box{
+    font-family:var(--mono); font-size:13px; color:var(--ink-dim);
+    background:var(--panel); border:1px solid var(--line); border-radius:8px;
+    padding:12px 14px; display:flex; align-items:center; justify-content:space-between; gap:10px;
+    max-width:460px;
+  }
+  .ca-box .addr{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .ca-copy{
+    background:none; border:1px solid var(--green-dim); color:var(--green);
+    font-family:var(--mono); font-size:12px; padding:6px 10px; border-radius:6px; cursor:pointer;
+    font-weight:700; flex-shrink:0;
+  }
+  .ca-copy:disabled{
+    color:var(--gold); border-color:var(--gold); opacity:.8; cursor:not-allowed;
+  }
+
+  /* ---------- 3D TILT + FLOAT SYSTEM ---------- */
+  .tilt-card{
+    perspective:1200px;
+    position:relative;
+  }
+  .tilt-inner{
+    transform-style:preserve-3d;
+    transition:transform .12s ease-out;
+    will-change:transform;
+  }
+  .tilt-inner img{
+    display:block;
+    transform:translateZ(0);
+    box-shadow:0 30px 80px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(57,255,20,0.1);
+    border-radius:18px;
+    border:2px solid var(--line);
+  }
+  .tilt-glow{
+    position:absolute; inset:0; border-radius:18px; pointer-events:none;
+    background:radial-gradient(circle at var(--gx,50%) var(--gy,50%), rgba(57,255,20,0.25), transparent 55%);
+    opacity:0; transition:opacity .25s ease; mix-blend-mode:screen;
+  }
+  .tilt-card:hover .tilt-glow{opacity:1;}
+
+  .float-slow{ animation:float3d 6s ease-in-out infinite; }
+  .float-slow.delay{ animation-delay:-3s; }
+  @keyframes float3d{
+    0%,100%{ transform:translateY(0) rotate(0deg); }
+    50%{ transform:translateY(-14px) rotate(0.6deg); }
+  }
+
+  .hero-art{position:relative;}
+  .hero-art .crack{
+    position:absolute; font-family:var(--mono); font-size:11px; color:var(--green);
+    background:#07100a; border:1px solid var(--green-dim); padding:6px 10px; border-radius:6px;
+    letter-spacing:.05em; z-index:3;
+  }
+  .crack-1{top:10%; left:-6%;}
+  .crack-2{bottom:12%; right:-6%;}
+
+  /* ---------- LIGHTNING DIVIDER (signature element) ---------- */
+  .crack-divider{
+    position:relative; height:64px; z-index:3;
+  }
+  .crack-divider svg{width:100%; height:100%; display:block;}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{position:relative; z-index:2; padding:70px 0;}
+  .section-head{max-width:640px; margin-bottom:44px;}
+  .tag{
+    font-family:var(--mono); font-size:12px; font-weight:700; letter-spacing:.14em;
+    color:var(--gold); text-transform:uppercase; margin-bottom:10px; display:block;
+  }
+  h2{
+    font-family:var(--display); text-transform:uppercase; font-size:clamp(28px,4vw,44px);
+    margin:0 0 14px; letter-spacing:.01em;
+  }
+  .section-head p{color:var(--ink-dim); font-size:16px; line-height:1.65; margin:0;}
+
+  /* ---------- STORY ---------- */
+  .story{
+    display:grid; grid-template-columns:0.85fr 1.15fr; gap:48px; align-items:center;
+  }
+  .story-copy p{color:var(--ink-dim); font-size:16px; line-height:1.75; margin:0 0 16px;}
+  .story-copy strong{color:var(--ink);}
+  .pill-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:20px;}
+  .pill{
+    font-family:var(--mono); font-size:12px; font-weight:600; color:var(--green);
+    border:1px solid var(--green-dim); background:rgba(57,255,20,0.05);
+    padding:7px 14px; border-radius:100px;
+  }
+
+  /* ---------- TERMINAL / STATS ---------- */
+  .terminal{
+    background:var(--panel); border:1px solid var(--line); border-radius:16px;
+    padding:8px; position:relative;
+  }
+  .terminal-head{
+    display:flex; align-items:center; gap:8px; padding:10px 14px;
+    border-bottom:1px solid var(--line); font-family:var(--mono); font-size:12px; color:var(--ink-dim);
+  }
+  .dot{width:9px; height:9px; border-radius:50%;}
+  .dot.r{background:#ff5f56;} .dot.y{background:#ffbd2e;} .dot.g{background:#27c93f;}
+  .terminal-body{padding:22px;}
+  .stat-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-bottom:0;
+  }
+  .stat-card{
+    background:var(--bg-2); border:1px solid var(--line); border-radius:10px; padding:18px;
+  }
+  .stat-card .label{font-family:var(--mono); font-size:11px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.08em;}
+  .stat-card .value{font-family:var(--mono); font-size:22px; font-weight:700; color:var(--green); margin-top:6px;}
+  .stat-card .value.gold{color:var(--gold);}
+  .chart-strip{
+    margin-top:18px; height:120px; border-radius:10px; overflow:hidden; border:1px solid var(--line);
+    background:linear-gradient(180deg, rgba(57,255,20,0.05), transparent);
+    display:flex; align-items:flex-end; gap:4px; padding:10px;
+  }
+  .bar{flex:1; background:linear-gradient(180deg, var(--lime), var(--green-dim)); border-radius:2px 2px 0 0;}
+
+  .terminal-visual{display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:center;}
+
+  /* ---------- ROADMAP (flight path) ---------- */
+  .flight{
+    display:grid; grid-template-columns:1fr 1fr; gap:52px; align-items:center;
+  }
+  .flight-art{position:relative;}
+  .path{list-style:none; margin:0; padding:0; position:relative;}
+  .path::before{
+    content:""; position:absolute; left:15px; top:8px; bottom:8px; width:2px;
+    background:repeating-linear-gradient(180deg, var(--green-dim) 0 6px, transparent 6px 12px);
+  }
+  .path li{position:relative; padding:0 0 34px 46px;}
+  .path li:last-child{padding-bottom:0;}
+  .path .node{
+    position:absolute; left:0; top:0; width:32px; height:32px; border-radius:50%;
+    background:var(--bg-2); border:2px solid var(--green); display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-size:13px; font-weight:700; color:var(--green);
+  }
+  .path .stage-title{font-family:var(--display); font-size:19px; text-transform:uppercase; letter-spacing:.01em;}
+  .path .stage-desc{color:var(--ink-dim); font-size:14.5px; margin-top:4px; line-height:1.55;}
+
+  /* ---------- HOW TO BUY ---------- */
+  .buy-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
+  .buy-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:22px;
+    position:relative;
+  }
+  .buy-card .num{
+    font-family:var(--display); font-size:34px; color:var(--gold); opacity:.9;
+  }
+  .buy-card h3{font-family:var(--body); font-size:16px; font-weight:700; margin:8px 0 6px;}
+  .buy-card p{color:var(--ink-dim); font-size:13.5px; line-height:1.55; margin:0;}
+
+  /* ---------- CTA BAND ---------- */
+  .cta-band{
+    background:linear-gradient(120deg, #0c1a10, #0a140d);
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    text-align:center; padding:70px 0;
+  }
+  .cta-band h2{font-size:clamp(30px,5vw,54px);}
+  .cta-band p{color:var(--ink-dim); max-width:520px; margin:0 auto 28px; font-size:16px;}
+  .cta-band .cta-row{justify-content:center;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:40px 0 30px; border-top:1px solid var(--line);}
+  .foot-grid{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;}
+  .foot-brand{display:flex; align-items:center; gap:12px;}
+  .foot-brand img{width:38px; height:38px; border-radius:50%; border:2px solid var(--green);}
+  .foot-links{display:flex; gap:22px; list-style:none; margin:0; padding:0; font-size:13px; color:var(--ink-dim);}
+  .foot-links a{text-decoration:none; color:var(--ink-dim);}
+  .foot-links a:hover{color:var(--green);}
+  .disclaimer{
+    font-size:12px; color:#5f7268; margin-top:24px; line-height:1.6; max-width:900px;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:920px){
+    nav ul{display:none;}
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-art{order:-1;}
+    .story{grid-template-columns:1fr;}
+    .terminal-visual{grid-template-columns:1fr;}
+    .flight{grid-template-columns:1fr;}
+    .buy-grid{grid-template-columns:repeat(2,1fr);}
+    .stat-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:520px){
+    .buy-grid{grid-template-columns:1fr;}
+    .cta-row{flex-direction:column; align-items:stretch;}
+    .ca-box{max-width:100%;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .ticker-track{animation:none;}
+    *{transition:none !important;}
+  }
+
+  :focus-visible{outline:2px solid var(--green); outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<div class="ticker-bar">
+  <div class="ticker-track">
+    <span>$BBULL LITTLE BODY, BIG AMBITION</span>
+    <span>★</span>
+    <span>LAUNCHING SOON ON COINSLAUNCH.IO</span>
+    <span>★</span>
+    <span>BORN TO PUMP</span>
+    <span>★</span>
+    <span>WE DON'T GAMBLE, WE BUILD</span>
+    <span>★</span>
+    <span>BELIEVE IN THE BULL</span>
+    <span>★</span>
+    <span>$BBULL LITTLE BODY, BIG AMBITION</span>
+    <span>★</span>
+    <span>LAUNCHING SOON ON COINSLAUNCH.IO</span>
+    <span>★</span>
+    <span>BORN TO PUMP</span>
+    <span>★</span>
+  </div>
+</div>
+
+<header>
+  <nav class="wrap">
+    <div class="brand">
+      <img src="logo.png" alt="BabyBuLL logo">
+      <span class="brand-name">BABY<em>BuLL</em></span>
+    </div>
+    <ul>
+      <li><a href="#story">Story</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
+      <li><a href="#buy">Get Ready</a></li>
+    </ul>
+    <a href="https://t.me/BabyBullCommunity" target="_blank" rel="noopener" class="nav-cta">Join Community</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Launching Soon on Coinslaunch.io</span>
+      <h1 class="headline">Little Body.<br>Big <span class="accent">Ambition.</span></h1>
+      <p class="sub">BabyBuLL ($BBULL) is a small, angry, gold-nose-ringed bull getting ready to charge onto Solana. No promises, no roadmap fluff — just a community that believes in the bull, before day one.</p>
+      <div class="cta-row">
+        <a href="https://t.me/BabyBullCommunity" target="_blank" rel="noopener" class="btn btn-primary">📣 Join Telegram</a>
+        <a href="https://x.com/babybull11111?s=11" target="_blank" rel="noopener" class="btn btn-ghost">Follow on X</a>
+      </div>
+      <div class="ca-box">
+        <span class="addr">CA: Coming soon — still in the making</span>
+        <button class="ca-copy" disabled title="Contract not deployed yet">SOON</button>
+      </div>
+    </div>
+    <div class="hero-art tilt-card float-slow" id="tiltHero">
+      <div class="tilt-inner">
+        <img src="rocket-moon.png" alt="BabyBuLL riding a rocket toward the moon">
+      </div>
+      <div class="tilt-glow"></div>
+      <span class="crack crack-1">STATUS: BULLISH</span>
+      <span class="crack crack-2">FUEL: DIAMOND HANDS</span>
+    </div>
+  </div>
+</section>
+
+<div class="crack-divider">
+  <svg viewBox="0 0 1200 64" preserveAspectRatio="none">
+    <polyline points="0,32 120,32 150,10 180,50 210,20 240,40 270,32 1200,32"
+      fill="none" stroke="#39ff14" stroke-width="2" opacity="0.55"/>
+    <polyline points="0,34 120,34 150,12 180,52 210,22 240,42 270,34 1200,34"
+      fill="none" stroke="#39ff14" stroke-width="1" opacity="0.25"/>
+  </svg>
+</div>
+
+<section id="story">
+  <div class="wrap story">
+    <div class="story-art tilt-card" id="tiltStory">
+      <div class="tilt-inner">
+        <img src="baby-car.png" alt="BabyBuLL driving toward the moon">
+      </div>
+      <div class="tilt-glow"></div>
+    </div>
+    <div class="story-copy">
+      <span class="tag">// origin</span>
+      <h2>From the Paddock to the Charts</h2>
+      <p>Every bull market needs a mascot. <strong>BabyBuLL</strong> was raised on chart candles instead of hay — small horns, a gold nose ring, and a black hoodie stitched with one word: $BBULL.</p>
+      <p>He's not here to gamble. He's here to <strong>build</strong>: a real community, a real chart, and a real reason to hold, right from launch day. Cute enough for the timeline, angry enough for the chart.</p>
+      <div class="pill-row">
+        <span class="pill">Launching on Coinslaunch.io</span>
+        <span class="pill">Built for Solana</span>
+        <span class="pill">Community First</span>
+        <span class="pill">Fair Launch Planned</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="crack-divider">
+  <svg viewBox="0 0 1200 64" preserveAspectRatio="none">
+    <polyline points="0,30 900,30 930,50 960,14 990,36 1020,30 1200,30"
+      fill="none" stroke="#39ff14" stroke-width="2" opacity="0.55"/>
+  </svg>
+</div>
+
+<section id="terminal-section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">// bull terminal</span>
+      <h2>He Runs His Own Desk</h2>
+      <p>Six monitors, one mug of Bull Fuel, and a spiral notebook that only says four things: Build. HODL. Market. Dominate.</p>
+    </div>
+    <div class="terminal-visual">
+      <div class="tilt-card" id="tiltDesk">
+        <div class="tilt-inner">
+          <img src="trading-desk.png" alt="BabyBuLL at his trading desk surrounded by green charts">
+        </div>
+        <div class="tilt-glow"></div>
+      </div>
+      <div class="terminal">
+        <div class="terminal-head">
+          <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+          <span style="margin-left:8px;">bbul_terminal — pre-launch</span>
+        </div>
+        <div class="terminal-body">
+          <div class="stat-grid">
+            <div class="stat-card">
+              <div class="label">Ticker</div>
+              <div class="value">$BBULL</div>
+            </div>
+            <div class="stat-card">
+              <div class="label">Chain</div>
+              <div class="value gold">Solana</div>
+            </div>
+            <div class="stat-card">
+              <div class="label">Status</div>
+              <div class="value">Coming Soon</div>
+            </div>
+          </div>
+          <div class="chart-strip">
+            <div class="bar" style="height:20%"></div>
+            <div class="bar" style="height:18%"></div>
+            <div class="bar" style="height:26%"></div>
+            <div class="bar" style="height:22%"></div>
+            <div class="bar" style="height:30%"></div>
+            <div class="bar" style="height:28%"></div>
+            <div class="bar" style="height:34%"></div>
+            <div class="bar" style="height:30%"></div>
+            <div class="bar" style="height:38%"></div>
+            <div class="bar" style="height:36%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="crack-divider">
+  <svg viewBox="0 0 1200 64" preserveAspectRatio="none">
+    <polyline points="0,30 700,30 730,52 760,12 790,34 1200,34"
+      fill="none" stroke="#39ff14" stroke-width="2" opacity="0.55"/>
+  </svg>
+</div>
+
+<section id="roadmap">
+  <div class="wrap flight">
+    <div>
+      <span class="tag">// flight path</span>
+      <h2>Ground to Moon</h2>
+      <ul class="path">
+        <li>
+          <span class="node">01</span>
+          <div class="stage-title">Pre-Launch</div>
+          <div class="stage-desc">Community building on Telegram and X, brand assets ready, contract in the making. You are here.</div>
+        </li>
+        <li>
+          <span class="node">02</span>
+          <div class="stage-title">Ignition</div>
+          <div class="stage-desc">Official launch on Coinslaunch.io. Contract address goes live and the bull leaves the paddock.</div>
+        </li>
+        <li>
+          <span class="node">03</span>
+          <div class="stage-title">Liftoff</div>
+          <div class="stage-desc">DexScreener listing, community raids, meme drops. Rocket clears the atmosphere.</div>
+        </li>
+        <li>
+          <span class="node">04</span>
+          <div class="stage-title">The Moon</div>
+          <div class="stage-desc">BabyBuLL sits on the moon with his coffee. No further instructions needed.</div>
+        </li>
+      </ul>
+    </div>
+    <div class="flight-art tilt-card float-slow delay" id="tiltMoon">
+      <div class="tilt-inner">
+        <img src="moon-chill.jpeg" alt="BabyBuLL relaxing on the moon">
+      </div>
+      <div class="tilt-glow"></div>
+    </div>
+  </div>
+</section>
+
+<div class="crack-divider">
+  <svg viewBox="0 0 1200 64" preserveAspectRatio="none">
+    <polyline points="0,32 500,32 530,10 560,50 590,32 1200,32"
+      fill="none" stroke="#39ff14" stroke-width="2" opacity="0.55"/>
+  </svg>
+</div>
+
+<section id="buy">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">// get ready</span>
+      <h2>Not Launched Yet — Get in Early</h2>
+      <p>$BBULL hasn't launched. There is no contract address yet — anyone sending you a "$BBULL CA" right now is not official. Here's how to be first in line.</p>
+    </div>
+    <div class="buy-grid">
+      <div class="buy-card">
+        <div class="num">01</div>
+        <h3>Get a wallet</h3>
+        <p>Install Phantom or Solflare and fund it with SOL, ready for launch day.</p>
+      </div>
+      <div class="buy-card">
+        <div class="num">02</div>
+        <h3>Join the community</h3>
+        <p>Follow us on X and join the Telegram — the official contract address will be posted there first.</p>
+      </div>
+      <div class="buy-card">
+        <div class="num">03</div>
+        <h3>Watch for launch on Coinslaunch.io</h3>
+        <p>$BBULL is expected to go live on Coinslaunch.io. We'll announce the exact time in the community.</p>
+      </div>
+      <div class="buy-card">
+        <div class="num">04</div>
+        <h3>Swap & join the herd</h3>
+        <p>Once live, swap SOL for $BBULL and check the chart on DexScreener — the herd moves together.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band">
+  <div class="wrap">
+    <span class="eyebrow" style="margin-bottom:14px;">Coming soon</span>
+    <h2>THE MOON</h2>
+    <p>BabyBuLL doesn't wait for the perfect entry. He charges. Join the herd now, before launch day on Coinslaunch.io.</p>
+    <div class="cta-row">
+      <a href="https://t.me/BabyBullCommunity" target="_blank" rel="noopener" class="btn btn-primary">📣 Join Telegram</a>
+      <a href="https://x.com/babybull11111?s=11" target="_blank" rel="noopener" class="btn btn-ghost">Follow on X</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="logo.png" alt="BabyBuLL logo">
+        <span class="brand-name" style="font-size:16px;">BABY<em>BuLL</em></span>
+      </div>
+      <ul class="foot-links">
+        <li><a href="https://t.me/BabyBullCommunity" target="_blank" rel="noopener">Telegram</a></li>
+        <li><a href="https://x.com/babybull11111?s=11" target="_blank" rel="noopener">X / Twitter</a></li>
+        <li><a href="https://dexscreener.com" target="_blank" rel="noopener" title="Chart will be live after launch">DexScreener (soon)</a></li>
+        <li><a href="#" title="Contract not deployed yet">CA: Coming Soon</a></li>
+      </ul>
+    </div>
+    <p class="disclaimer">$BBULL / BabyBuLL has not launched yet and is currently in development, expected to launch on Coinslaunch.io. There is no live contract address — do not trust any address shared outside our official Telegram (t.me/BabyBullCommunity) or X (@babybull11111). $BBULL is a meme token with no intrinsic value or financial return expectation, existing purely for entertainment. Always do your own research and never invest more than you can afford to lose.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduceMotion) return;
+
+  var cards = document.querySelectorAll('.tilt-card');
+  var isTouch = window.matchMedia('(hover: none)').matches;
+
+  cards.forEach(function(card){
+    var inner = card.querySelector('.tilt-inner');
+    var maxTilt = 10; // degrees
+
+    function setTilt(px, py){
+      var rotY = (px - 0.5) * maxTilt * 2;
+      var rotX = (0.5 - py) * maxTilt * 2;
+      inner.style.transform = 'rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg) translateZ(10px)';
+      card.style.setProperty('--gx', (px * 100) + '%');
+      card.style.setProperty('--gy', (py * 100) + '%');
+    }
+
+    function reset(){
+      inner.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0)';
+    }
+
+    if(!isTouch){
+      card.addEventListener('mousemove', function(e){
+        var rect = card.getBoundingClientRect();
+        var px = (e.clientX - rect.left) / rect.width;
+        var py = (e.clientY - rect.top) / rect.height;
+        setTilt(px, py);
+      });
+      card.addEventListener('mouseleave', reset);
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
