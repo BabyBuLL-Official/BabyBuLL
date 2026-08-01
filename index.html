@@ -159,6 +159,20 @@
     color:var(--gold); border-color:var(--gold); opacity:.8; cursor:not-allowed;
   }
 
+  /* ---------- PLATFORM LINKS GRID ---------- */
+  .platform-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:8px; max-width:440px;
+  }
+  .platform-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:18px 14px; text-align:center; text-decoration:none; color:var(--ink);
+    transition:border-color .2s, transform .15s;
+  }
+  .platform-card:hover{border-color:var(--green); transform:translateY(-3px);}
+  .platform-card .icon{font-size:26px; display:block; margin-bottom:8px;}
+  .platform-card .pname{font-weight:700; font-size:14px;}
+  .platform-card .prole{font-family:var(--mono); font-size:11px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.05em; margin-top:2px;}
+
   /* ---------- 3D TILT + FLOAT SYSTEM ---------- */
   .tilt-card{
     perspective:1200px;
@@ -303,7 +317,23 @@
   .cta-band p{color:var(--ink-dim); max-width:520px; margin:0 auto 28px; font-size:16px;}
   .cta-band .cta-row{justify-content:center;}
 
-  /* ---------- FOOTER ---------- */
+  /* ---------- HERD ARMY BANNER ---------- */
+  .herd-section{ padding:0; }
+  .herd-banner{
+    position:relative; border-radius:0; overflow:hidden;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .herd-banner img{ width:100%; display:block; filter:brightness(0.55) saturate(1.1); }
+  .herd-overlay{
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:24px;
+    background:linear-gradient(180deg, rgba(7,16,10,0.2) 0%, rgba(7,16,10,0.75) 100%);
+  }
+  .herd-overlay h2{
+    color:#fff; -webkit-text-stroke:1px #000; text-shadow:0 0 30px rgba(57,255,20,0.5);
+    margin-bottom:10px;
+  }
+  .herd-overlay p{ color:#d8e8dd; max-width:560px; font-size:16px; line-height:1.6; margin:0 0 22px; }
   footer{padding:40px 0 30px; border-top:1px solid var(--line);}
   .foot-grid{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;}
   .foot-brand{display:flex; align-items:center; gap:12px;}
@@ -328,6 +358,7 @@
   }
   @media (max-width:520px){
     .buy-grid{grid-template-columns:1fr;}
+    .platform-grid{grid-template-columns:1fr;}
     .cta-row{flex-direction:column; align-items:stretch;}
     .ca-box{max-width:100%;}
   }
@@ -348,7 +379,7 @@
   <div class="ticker-track">
     <span>$BBULL LITTLE BODY, BIG AMBITION</span>
     <span>★</span>
-    <span>LAUNCHING SOON ON COINSLAUNCH.IO</span>
+    <span>WE ARE LIVE ON SOLANA</span>
     <span>★</span>
     <span>BORN TO PUMP</span>
     <span>★</span>
@@ -358,7 +389,7 @@
     <span>★</span>
     <span>$BBULL LITTLE BODY, BIG AMBITION</span>
     <span>★</span>
-    <span>LAUNCHING SOON ON COINSLAUNCH.IO</span>
+    <span>WE ARE LIVE ON SOLANA</span>
     <span>★</span>
     <span>BORN TO PUMP</span>
     <span>★</span>
@@ -374,9 +405,10 @@
     <ul>
       <li><a href="#story">Story</a></li>
       <li><a href="#roadmap">Roadmap</a></li>
-      <li><a href="#buy">Get Ready</a></li>
+      <li><a href="#buy">How to Buy</a></li>
+      <li><a href="https://t.me/BabyBullCommunity" target="_blank" rel="noopener">Telegram</a></li>
     </ul>
-    <a href="https://t.me/BabyBullCommunity" target="_blank" rel="noopener" class="nav-cta">Join Community</a>
+    <a href="https://jup.ag/tokens/61bJjSkFC5baYBnLH9LiCa46ZyYWMiA2CuxPNkiMb76B" target="_blank" rel="noopener" class="nav-cta">🚀 Buy $BBULL</a>
   </nav>
 </header>
 
@@ -384,16 +416,16 @@
   <div class="hero-glow"></div>
   <div class="wrap hero-grid">
     <div>
-      <span class="eyebrow">Launching Soon on Coinslaunch.io</span>
+      <span class="eyebrow">🟢 Live Now on Solana</span>
       <h1 class="headline">Little Body.<br>Big <span class="accent">Ambition.</span></h1>
-      <p class="sub">BabyBuLL ($BBULL) is a small, angry, gold-nose-ringed bull getting ready to charge onto Solana. No promises, no roadmap fluff — just a community that believes in the bull, before day one.</p>
+      <p class="sub">BabyBuLL ($BBULL) has launched on Solana. Small, angry, gold-nose-ringed, and ready to charge the chart. No promises, no roadmap fluff — just a community that believes in the bull.</p>
       <div class="cta-row">
-        <a href="https://t.me/BabyBullCommunity" target="_blank" rel="noopener" class="btn btn-primary">📣 Join Telegram</a>
-        <a href="https://x.com/babybull11111?s=11" target="_blank" rel="noopener" class="btn btn-ghost">Follow on X</a>
+        <a href="https://jup.ag/tokens/61bJjSkFC5baYBnLH9LiCa46ZyYWMiA2CuxPNkiMb76B" target="_blank" rel="noopener" class="btn btn-primary">🚀 Buy $BBULL</a>
+        <a href="https://dexscreener.com/solana/61bJjSkFC5baYBnLH9LiCa46ZyYWMiA2CuxPNkiMb76B" target="_blank" rel="noopener" class="btn btn-ghost">📈 View Chart</a>
       </div>
       <div class="ca-box">
-        <span class="addr">CA: Coming soon — still in the making</span>
-        <button class="ca-copy" disabled title="Contract not deployed yet">SOON</button>
+        <span class="addr" id="caText">61bJjSkFC5baYBnLH9LiCa46ZyYWMiA2CuxPNkiMb76B</span>
+        <button class="ca-copy" onclick="copyCA()">COPY</button>
       </div>
     </div>
     <div class="hero-art tilt-card float-slow" id="tiltHero">
@@ -430,10 +462,10 @@
       <p>Every bull market needs a mascot. <strong>BabyBuLL</strong> was raised on chart candles instead of hay — small horns, a gold nose ring, and a black hoodie stitched with one word: $BBULL.</p>
       <p>He's not here to gamble. He's here to <strong>build</strong>: a real community, a real chart, and a real reason to hold, right from launch day. Cute enough for the timeline, angry enough for the chart.</p>
       <div class="pill-row">
-        <span class="pill">Launching on Coinslaunch.io</span>
-        <span class="pill">Built for Solana</span>
+        <span class="pill">🟢 Live on Solana</span>
         <span class="pill">Community First</span>
-        <span class="pill">Fair Launch Planned</span>
+        <span class="pill">Fair Launch</span>
+        <span class="pill">DYOR</span>
       </div>
     </div>
   </div>
@@ -463,7 +495,7 @@
       <div class="terminal">
         <div class="terminal-head">
           <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-          <span style="margin-left:8px;">bbul_terminal — pre-launch</span>
+          <span style="margin-left:8px;">bbull_terminal — live</span>
         </div>
         <div class="terminal-body">
           <div class="stat-grid">
@@ -477,20 +509,20 @@
             </div>
             <div class="stat-card">
               <div class="label">Status</div>
-              <div class="value">Coming Soon</div>
+              <div class="value">🟢 Live</div>
             </div>
           </div>
           <div class="chart-strip">
-            <div class="bar" style="height:20%"></div>
-            <div class="bar" style="height:18%"></div>
-            <div class="bar" style="height:26%"></div>
-            <div class="bar" style="height:22%"></div>
             <div class="bar" style="height:30%"></div>
-            <div class="bar" style="height:28%"></div>
-            <div class="bar" style="height:34%"></div>
-            <div class="bar" style="height:30%"></div>
+            <div class="bar" style="height:45%"></div>
             <div class="bar" style="height:38%"></div>
-            <div class="bar" style="height:36%"></div>
+            <div class="bar" style="height:60%"></div>
+            <div class="bar" style="height:52%"></div>
+            <div class="bar" style="height:75%"></div>
+            <div class="bar" style="height:68%"></div>
+            <div class="bar" style="height:88%"></div>
+            <div class="bar" style="height:80%"></div>
+            <div class="bar" style="height:100%"></div>
           </div>
         </div>
       </div>
@@ -512,19 +544,19 @@
       <h2>Ground to Moon</h2>
       <ul class="path">
         <li>
-          <span class="node">01</span>
+          <span class="node">✓</span>
           <div class="stage-title">Pre-Launch</div>
-          <div class="stage-desc">Community building on Telegram and X, brand assets ready, contract in the making. You are here.</div>
+          <div class="stage-desc">Community built on Telegram and X, brand assets ready, contract deployed. Done.</div>
         </li>
         <li>
-          <span class="node">02</span>
+          <span class="node">✓</span>
           <div class="stage-title">Ignition</div>
-          <div class="stage-desc">Official launch on Coinslaunch.io. Contract address goes live and the bull leaves the paddock.</div>
+          <div class="stage-desc">$BBULL is live on Solana. The bull has left the paddock.</div>
         </li>
         <li>
           <span class="node">03</span>
           <div class="stage-title">Liftoff</div>
-          <div class="stage-desc">DexScreener listing, community raids, meme drops. Rocket clears the atmosphere.</div>
+          <div class="stage-desc">DexScreener trending, community raids, meme drops. Rocket clears the atmosphere.</div>
         </li>
         <li>
           <span class="node">04</span>
@@ -549,46 +581,86 @@
   </svg>
 </div>
 
+<section class="herd-section">
+  <div class="herd-banner tilt-card">
+    <div class="tilt-inner">
+      <img src="army.png" alt="An army of BabyBuLL warriors charging across a battlefield">
+    </div>
+    <div class="herd-overlay">
+      <span class="eyebrow" style="margin-bottom:14px;">🟢 We're live</span>
+      <h2>One Bull Became an Army</h2>
+      <p>Every holder is a soldier in the herd. He doesn't charge alone anymore — thousands of bulls behind one green banner, one ticker, one mission.</p>
+      <div class="cta-row" style="justify-content:center;">
+        <a href="https://jup.ag/tokens/61bJjSkFC5baYBnLH9LiCa46ZyYWMiA2CuxPNkiMb76B" target="_blank" rel="noopener" class="btn btn-primary">🚀 Join the Herd</a>
+        <a href="https://t.me/BabyBullCommunity" target="_blank" rel="noopener" class="btn btn-ghost">Join Telegram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="crack-divider">
+  <svg viewBox="0 0 1200 64" preserveAspectRatio="none">
+    <polyline points="0,30 700,30 730,52 760,12 790,34 1200,34"
+      fill="none" stroke="#39ff14" stroke-width="2" opacity="0.55"/>
+  </svg>
+</div>
+
 <section id="buy">
   <div class="wrap">
     <div class="section-head">
-      <span class="tag">// get ready</span>
-      <h2>Not Launched Yet — Get in Early</h2>
-      <p>$BBULL hasn't launched. There is no contract address yet — anyone sending you a "$BBULL CA" right now is not official. Here's how to be first in line.</p>
+      <span class="tag">// how to buy</span>
+      <h2>We're Live — Get on the Rocket</h2>
+      <p>$BBULL is officially live on Solana. Four steps and you're in the herd.</p>
+    </div>
+    <div class="ca-box" style="max-width:640px; margin-bottom:36px;">
+      <span class="addr">61bJjSkFC5baYBnLH9LiCa46ZyYWMiA2CuxPNkiMb76B</span>
+      <button class="ca-copy" onclick="copyCA()">COPY</button>
     </div>
     <div class="buy-grid">
       <div class="buy-card">
         <div class="num">01</div>
         <h3>Get a wallet</h3>
-        <p>Install Phantom or Solflare and fund it with SOL, ready for launch day.</p>
+        <p>Install Phantom or Solflare and fund it with SOL from any exchange.</p>
       </div>
       <div class="buy-card">
         <div class="num">02</div>
-        <h3>Join the community</h3>
-        <p>Follow us on X and join the Telegram — the official contract address will be posted there first.</p>
+        <h3>Choose your platform</h3>
+        <p>Use Jupiter or Raydium below — the $BBULL contract address is already loaded in, just confirm and swap.</p>
       </div>
       <div class="buy-card">
         <div class="num">03</div>
-        <h3>Watch for launch on Coinslaunch.io</h3>
-        <p>$BBULL is expected to go live on Coinslaunch.io. We'll announce the exact time in the community.</p>
+        <h3>Swap SOL for $BBULL</h3>
+        <p>Set your slippage, confirm the swap, and let the bull into your wallet.</p>
       </div>
       <div class="buy-card">
         <div class="num">04</div>
-        <h3>Swap & join the herd</h3>
-        <p>Once live, swap SOL for $BBULL and check the chart on DexScreener — the herd moves together.</p>
+        <h3>Hold & join the herd</h3>
+        <p>Add the token to your wallet view and jump into the Telegram — the herd moves together.</p>
       </div>
+    </div>
+    <div class="platform-grid" style="margin-top:32px;">
+      <a href="https://jup.ag/tokens/61bJjSkFC5baYBnLH9LiCa46ZyYWMiA2CuxPNkiMb76B" target="_blank" rel="noopener" class="platform-card">
+        <span class="icon">🪐</span>
+        <span class="pname">Jupiter</span>
+        <span class="prole">Buy Now</span>
+      </a>
+      <a href="https://raydium.io/swap/?inputMint=sol&outputMint=61bJjSkFC5baYBnLH9LiCa46ZyYWMiA2CuxPNkiMb76B&referrer=BTAJrz8bRVBTGN3bJ8AcMMtZ9VxQhhKNCMgyAqhSHup2" target="_blank" rel="noopener" class="platform-card">
+        <span class="icon">⚡</span>
+        <span class="pname">Raydium</span>
+        <span class="prole">Buy Now</span>
+      </a>
     </div>
   </div>
 </section>
 
 <div class="cta-band">
   <div class="wrap">
-    <span class="eyebrow" style="margin-bottom:14px;">Coming soon</span>
+    <span class="eyebrow" style="margin-bottom:14px;">🟢 We're live</span>
     <h2>THE MOON</h2>
-    <p>BabyBuLL doesn't wait for the perfect entry. He charges. Join the herd now, before launch day on Coinslaunch.io.</p>
+    <p>BabyBuLL doesn't wait for the perfect entry. He charges. Join the herd now — the chart won't wait.</p>
     <div class="cta-row">
-      <a href="https://t.me/BabyBullCommunity" target="_blank" rel="noopener" class="btn btn-primary">📣 Join Telegram</a>
-      <a href="https://x.com/babybull11111?s=11" target="_blank" rel="noopener" class="btn btn-ghost">Follow on X</a>
+      <a href="https://jup.ag/tokens/61bJjSkFC5baYBnLH9LiCa46ZyYWMiA2CuxPNkiMb76B" target="_blank" rel="noopener" class="btn btn-primary">🚀 Buy $BBULL Now</a>
+      <a href="https://t.me/BabyBullCommunity" target="_blank" rel="noopener" class="btn btn-ghost">Join Telegram</a>
     </div>
   </div>
 </div>
@@ -603,11 +675,11 @@
       <ul class="foot-links">
         <li><a href="https://t.me/BabyBullCommunity" target="_blank" rel="noopener">Telegram</a></li>
         <li><a href="https://x.com/babybull11111?s=11" target="_blank" rel="noopener">X / Twitter</a></li>
-        <li><a href="https://dexscreener.com" target="_blank" rel="noopener" title="Chart will be live after launch">DexScreener (soon)</a></li>
-        <li><a href="#" title="Contract not deployed yet">CA: Coming Soon</a></li>
+        <li><a href="https://dexscreener.com/solana/61bJjSkFC5baYBnLH9LiCa46ZyYWMiA2CuxPNkiMb76B" target="_blank" rel="noopener">DexScreener</a></li>
+        <li><a href="https://solscan.io/token/61bJjSkFC5baYBnLH9LiCa46ZyYWMiA2CuxPNkiMb76B" target="_blank" rel="noopener">Solscan</a></li>
       </ul>
     </div>
-    <p class="disclaimer">$BBULL / BabyBuLL has not launched yet and is currently in development, expected to launch on Coinslaunch.io. There is no live contract address — do not trust any address shared outside our official Telegram (t.me/BabyBullCommunity) or X (@babybull11111). $BBULL is a meme token with no intrinsic value or financial return expectation, existing purely for entertainment. Always do your own research and never invest more than you can afford to lose.</p>
+    <p class="disclaimer">Official $BBULL contract address: <strong>61bJjSkFC5baYBnLH9LiCa46ZyYWMiA2CuxPNkiMb76B</strong>. Always verify this address against our official Telegram (t.me/BabyBullCommunity) or X (@babybull11111) before trading — never trust a CA from anywhere else. $BBULL is a meme token with no intrinsic value or financial return expectation, existing purely for entertainment. Always do your own research and never invest more than you can afford to lose.</p>
   </div>
 </footer>
 
@@ -646,6 +718,18 @@
     }
   });
 })();
+
+function copyCA(){
+  var text = "61bJjSkFC5baYBnLH9LiCa46ZyYWMiA2CuxPNkiMb76B";
+  navigator.clipboard.writeText(text).then(function(){
+    var buttons = document.querySelectorAll('.ca-copy');
+    buttons.forEach(function(btn){
+      var original = btn.textContent;
+      btn.textContent = "COPIED!";
+      setTimeout(function(){ btn.textContent = original; }, 1500);
+    });
+  });
+}
 </script>
 
 </body>
